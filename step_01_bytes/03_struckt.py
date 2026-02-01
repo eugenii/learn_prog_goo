@@ -16,7 +16,9 @@ print("Распаковали: new_ID = {}, new_rating = {}".format(new_ID, new_
 
 # 3. Изменение bytearray
 mutable_header = bytearray(header)
-mutable_header[1] = 255  
+mutable_header[0] = 255  
 new_unpacked_header = struct.unpack('if', mutable_header)
 new_ID_2, new_rating_2 = new_unpacked_header
 print("Распаковали_2: new_ID = {}, new_rating = {}".format(new_ID_2, new_rating_2))
+
+# если указать mutable_header[1] - получается ерунда, но ведь id занимает 4 байта?
