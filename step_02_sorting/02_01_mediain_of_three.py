@@ -1,6 +1,6 @@
 # 1. Медиана трёх
 
-def median_of_three(a, b, c):  # не использую встроенную сортировку для тренировки. Или стоило?
+def median_of_three(a, b, c): 
     if a > b:
         if a > c:
             return max(b, c)
@@ -14,9 +14,9 @@ def median_of_three(a, b, c):  # не использую встроенную с
 #     print(_, median_of_three(*_))
 
 def quick_sort_median(arr, start, end):
-    if len(arr) <= 1:
+    if start >= end:
         return arr
-    pivot = median_of_three(arr[0], arr[len(arr) // 2], arr[-1])
+    pivot = arr[median_of_three(start, (start + end) // 2, end)]  # pivot - значение
     left, right = start, end
     
     # По всему массиву
@@ -32,12 +32,18 @@ def quick_sort_median(arr, start, end):
             arr[left], arr[right] = arr[right], arr[left]
             left += 1
             right -= 1
-    quick_sort_median(arr, start, right)  # Почему передаётся массив целиком только без некоторых элементов справа?
-    quick_sort_median(arr, left, end)  # Аналогично с левой частью?
+    if start < right:
+        quick_sort_median(arr, start, right)  # Здесь разобрался
+        quick_sort_median(arr, left, end)  # тоже самое
 
 if __name__ == '__main__':
     arr = [int(i) for i in input().split()]
     quick_sort_median(arr, 0, len(arr) - 1)
     print(*arr)
+
+    assert median_of_three(1, 7, 4) == 4
+    # Как проверить? может скрипт на bash?
+    # assert quick_sort_median([1, 7, 4], 0, 2) == [1, 4, 7]
+    # assert quick_sort_median([1, 7, 4, 2, 3, 5, 6], 0, 6) == [1, 2, 3, 4, 5, 6, 7]
         
 
