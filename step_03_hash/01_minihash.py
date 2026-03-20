@@ -25,6 +25,15 @@ class SimpleMap:
             if item[0] == key:
                 return item[1]
             return None
+        
+    def delete(self, key):
+        index = self._get_hash(key)
+        for item in self.table[index]:  # перебираю пары (ключ, значение)
+            if item[0] == key:
+                x = item[1]
+                self.table[index].remove(item)  # удалил эту ПАРУ!
+                return x
+        return None
 
 
 # для создания теста на bash в дальнейшем...
@@ -34,19 +43,27 @@ commands = {
 
 # data = [1, 11, 21]
 
-table = SimpleMap()
+# table = SimpleMap()
 
+# take 1
 # for elt in data:
 #     table.put(elt, elt)
 
-# take 1
+# take 2
 # map = SimpleMap()
 # map.put(1, "первое")
 # map.put(1, "второе")
 # print(map.table[1]) # Должно быть только [[1, "второе"]]
 
-# take 2
-my_map = SimpleMap()
-my_map.put(10, "apple")
-print(my_map.get(10))  # Должно вывести: apple
-print(my_map.get(999)) # Должно вывести: None
+# take 3
+# my_map = SimpleMap()
+# my_map.put(10, "apple")
+# print(my_map.get(10))  # Должно вывести: apple
+# print(my_map.get(999)) # Должно вывести: None
+
+# take 4
+map = SimpleMap()
+map.put(5, "пять")
+print(map.delete(5)) # Должно вывести: пять
+print(map.get(5))    # Должно вывести: None
+
