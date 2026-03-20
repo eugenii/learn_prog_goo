@@ -19,6 +19,10 @@ b_phrase.extend(b'!')
 
 
 print(b_phrase.decode("utf-8"))
+
+# Что бы посмотреть разницу:
 print(b_phrase)
 print(sclice_b_phrase.decode("utf-8"))
 print(sclice_b_phrase)
+
+# Используем число 87, а не букву - так как внутри b_phrase лежат байтовыне представления, а не символы?
