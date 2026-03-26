@@ -1,4 +1,4 @@
-# 01 Считаем листья
+# 02 Глубина норы.
 
 class Node:
     def __init__(self, obj, left=None, right=None):
@@ -7,22 +7,26 @@ class Node:
         self.right = right
 
 
-def solution(root) -> int:
+def solution(root: Node) -> int:
     if root is None:
         return 0
-    stack = [root]
-    count = 0
+    level = 0
+    max_level = 0
+    stack = [(root, level)]
     while stack:
         node = stack.pop()
-        if node.left is None and node.right is None:
-            count += 1
-            continue
-        if node.left:
-            stack.append(node.left)
-        if node.right:
-            stack.append(node.right)
+        if node[0].left is None and node[0].right is None:
+            return max_level
+        if node[0].left:
+            if node[1] + 1 > max_level:
+                max_level = node[1] + 1
+                stack.append((node[0].left, node[1] + 1))
+        if node[0].right:
+            if node[1] + 1 > max_level:
+                max_level = node[1] + 1
+                stack.append((node[0].right, node[1] + 1))
+    return max_level
 
-    return count
 
 if __name__ == '__main__':
     # 1. Создаем узлы
@@ -42,5 +46,7 @@ if __name__ == '__main__':
     print(f"Количество листьев: {result}")
     
     # Простая проверка (assert)
-    assert result == 3, f"Ожидалось 3, но получили {result}"
+    assert result == 2, f"Ожидалось 2, но получили {result}"
     print("Тест пройден успешно!")
+
+    
