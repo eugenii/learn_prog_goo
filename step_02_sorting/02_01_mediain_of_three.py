@@ -42,8 +42,6 @@ if __name__ == '__main__':
     print(*arr)
 
     assert median_of_three(1, 7, 4) == 4
-    # Как проверить? может скрипт на bash?
-    # assert quick_sort_median([1, 7, 4], 0, 2) == [1, 4, 7]
-    # assert quick_sort_median([1, 7, 4, 2, 3, 5, 6], 0, 6) == [1, 2, 3, 4, 5, 6, 7]
+
         
 
