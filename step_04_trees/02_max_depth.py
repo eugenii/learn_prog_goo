@@ -10,21 +10,17 @@ class Node:
 def solution(root: Node) -> int:
     if root is None:
         return 0
-    level = 0
     max_level = 0
-    stack = [(root, level)]
+    stack = [(root, 1)]
     while stack:
-        node = stack.pop()
-        if node[0].left is None and node[0].right is None:
-            return max_level
-        if node[0].left:
-            if node[1] + 1 > max_level:
-                max_level = node[1] + 1
-                stack.append((node[0].left, node[1] + 1))
-        if node[0].right:
-            if node[1] + 1 > max_level:
-                max_level = node[1] + 1
-                stack.append((node[0].right, node[1] + 1))
+        node, level = stack.pop()
+
+        max_level = max(max_level, level)
+        
+        if node.left:
+            stack.append((node.left, level + 1))
+        if node.right:
+            stack.append((node.right, level + 1))
     return max_level
 
 
@@ -46,7 +42,7 @@ if __name__ == '__main__':
     print(f"Количество листьев: {result}")
     
     # Простая проверка (assert)
-    assert result == 2, f"Ожидалось 2, но получили {result}"
+    assert result == 3, f"Ожидалось 3, но получили {result}"
     print("Тест пройден успешно!")
 
     
