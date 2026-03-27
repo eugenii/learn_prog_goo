@@ -1,28 +1,35 @@
 # 03 Зеркальное дерево.
 
 class Node:
-    def __init__(self, obj, left=None, right=None):
-        self.obj = obj
+    def __init__(self, value, left=None, right=None):
+        self.value = value
         self.left = left
         self.right = right
 
+
 def solution(root) -> bool:
-    stack = []
     if not root:
-        return
-    if not (root.left and root.right):
-        return False
-    stack.append((root.left, root.right))
+        return True
+
+    # Кладём ПАРУ узлов, которые должны быть зеркальны
+    stack = [(root.left, root.right)]
     while stack:
-        node_l, node_r = stack.pop()
-        if node_l is None and node_r is None:
+        left, right = stack.pop()
+
+        # 1. Если оба None — это симметрично, проверяем следующую пару
+        if left is None and right is None:
             continue
-        if node_l.obj != node_r.obj:
+            
+        # 2. Если один None, а другой нет, ИЛИ значения разные — не симметрично
+        if left is None or right is None or left.value != right.value:
             return False
-        if (node_l is None or node_r is None) and node_l != node_r:
-            return False
-        stack.append((node_l.left, node_r.right))
-        stack.append((node_l.right, node_r.left))
+
+        # 3. Кладём новые пары для проверки:
+        # Внешние стороны: левый-левый и правый-правый
+        stack.append((left.left, right.right))
+        # Внутренние стороны: левый-правый и правый-левый
+        stack.append((left.right, right.left))
+
     return True
 
 if __name__ == '__main__':
