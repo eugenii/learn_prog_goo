@@ -28,10 +28,10 @@ class SimpleMap:
         
     def delete(self, key):
         index = self._get_hash(key)
-        for item in self.table[index]:  # перебираю пары (ключ, значение)
+        for i,  item in enumerate(self.table[index]):  # перебираю пары (ключ, значение)
             if item[0] == key:
                 x = item[1]
-                self.table[index].remove(item)  # удалил эту ПАРУ!
+                self.table[index].pop(i)  # удалил эту ПАРУ!
                 return x
         return None
 
